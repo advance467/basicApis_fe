@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books Manager - Frontend</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="navbar">
+        <div class="logo">
+          <span class="icon">📚</span>
+          <h1>Books Manager</h1>
+        </div>
+        <div class="backend-badge">
+          <span class="status-dot"></span> Backend: <span id="backend-url"></span>
+        </div>
+      </header>
+
+      <main class="content">
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h2>Library Books</h2>
+              <p class="subtitle">Live data fetched from the Python Flask backend.</p>
+            </div>
+            <button id="refresh-btn" class="btn btn-secondary">
+              🔄 Refresh Data
+            </button>
+          </div>
+
+          <!-- Status / Error Messages -->
+          <div id="status-message" class="status-message hidden"></div>
+
+          <!-- Books Table Container -->
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 80px">ID</th>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th style="width: 120px">Year</th>
+                </tr>
+              </thead>
+              <tbody id="books-table-body">
+                <!-- Rows injected dynamically via main.ts -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-footer">
+            <span id="book-count" class="text-muted">Total books: 0</span>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
