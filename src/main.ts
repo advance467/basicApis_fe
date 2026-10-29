@@ -6,8 +6,6 @@ const message = document.getElementById("status-message")!;
 const count = document.getElementById("book-count")!;
 const refreshButton = document.getElementById("refresh-btn")!;
 
-document.getElementById("backend-url")!.textContent = API_BASE_URL;
-
 // 2. Ask the backend for the books and show them in the table
 async function loadBooks() {
   message.className = "status-message loading";
@@ -36,5 +34,25 @@ async function loadBooks() {
 }
 
 // 3. Load the books when the button is clicked, and once when the page opens
-refreshButton.addEventListener("click", loadBooks);
-loadBooks();
+// (only on index.html, because aggiungere.html has no table)
+if (refreshButton) {
+  document.getElementById("backend-url")!.textContent = API_BASE_URL;
+  refreshButton.addEventListener("click", loadBooks);
+  loadBooks();
+}
+
+// 4. Send a new book to the backend with POST /books
+async function addBooks() {
+  const title = (document.getElementById("title") as HTMLInputElement).value;
+  const author = (document.getElementById("author") as HTMLInputElement).value;
+  const year = (document.getElementById("year") as HTMLInputElement).value;
+
+  await fetch(`${API_BASE_URL}/books`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title, author, year }),
+  });
+}
+
+// Make addBooks reachable from onclick="addBooks()" in the HTML
+(window as any).addBooks = addBooks;
