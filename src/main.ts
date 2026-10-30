@@ -1,6 +1,6 @@
 import { getBooks, API_BASE_URL } from "./api/books";
 
-// 1. Find the parts of the page we want to change
+// Prendiamo cose da cambiare
 const table = document.getElementById("books-table-body")!;
 const message = document.getElementById("status-message")!;
 const count = document.getElementById("book-count")!;
@@ -8,11 +8,13 @@ const refreshButton = document.getElementById("refresh-btn")!;
 
 document.getElementById("backend-url")!.textContent = API_BASE_URL;
 
-// 2. Ask the backend for the books and show them in the table
+// Chiediamo libri a backend e aggiungiamo a tabella
 async function loadBooks() {
+  // qui chiediamo 
   message.className = "status-message loading";
   message.textContent = "Loading books...";
-
+  
+  // qui aggiungiamo
   try {
     const books = await getBooks();
 
@@ -35,6 +37,8 @@ async function loadBooks() {
   }
 }
 
-// 3. Load the books when the button is clicked, and once when the page opens
+// carichiamo libri quando viene premuto il tasto refresh
 refreshButton.addEventListener("click", loadBooks);
+
+// carichiamo libri quando pagina aperta
 loadBooks();
